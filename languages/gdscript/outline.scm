@@ -14,12 +14,6 @@
     (name) @name
     (parameters
         "(" @context
-        (identifier)? @name
-        (typed_parameter
-            (identifier) @name
-            ":" @context
-            (type) @name
-        )?
         ")" @context)?
     ) @item
 
@@ -45,22 +39,14 @@
         name:(name) @name
         ) @item)
 
-(source(function_definition
+(function_definition
     (static_keyword)? @context
     "func" @context
     name:(name) @name
     parameters:(parameters
         "(" @context
-        (identifier)? @name
-        (typed_parameter
-            (identifier) @name
-            ":" @context
-            (type) @name
-        )?
         ")" @context)
-    "->"? @context
-    return_type: (type)? @name
-    ) @item)
+    )@item
 
 (class_definition
     "class" @context
@@ -77,30 +63,11 @@
             )?
         "var" @context
         name:(name) @name
-        )) @item)
-
-(class_definition
-    body:(body
-        (function_definition
-            (static_keyword)? @context
-            "func" @context
-            name:(name) @name
-            parameters:(parameters
-                "(" @context
-                (identifier)? @name
-                (typed_parameter
-                    (identifier) @name
-                    ":" @context
-                    (type) @name
-                )?
-                ")" @context)
-            "->"? @context
-            return_type: (type)? @name
-            ))) @item
+        )@item ))
 
 (class_definition
     body:(body
         (const_statement
             "const" @context
             name:(name) @name
-            ))) @item
+            )@item ))
